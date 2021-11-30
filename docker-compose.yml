@@ -1,0 +1,55 @@
+version: '3.1'
+
+services:
+
+  bot:
+    build: .
+    restart: always
+    ports:
+      - '${PORT:-8000}:8000'
+    entrypoint:
+      - ./entrypoint.sh
+    volumes:
+      - ./data/logs:/usr/src/app/data/logs
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      ADMINS: ${ADMINS}
+      BOT_TOKEN: ${BOT_TOKEN}
+
+      DATABASE_USER: postgres
+      DATABASE_PASS: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+
+      DATABASE_NAME: postgres
+
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+      WEBHOOK_HOST: ${WEBHOOK_HOST:-localhost}
+      WEBHOOK_PATH: ${WEBHOOK_PATH}
+
+  redis:
+    image: redis:alpine
+    command: redis-server
+    volumes:
+      - redis_data:/var/lib/redis
+      - redis_conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+
+volumes:
+  redis_data:
+  redis_conf:
+  postgres_data:
