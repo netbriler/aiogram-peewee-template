@@ -3,12 +3,12 @@
 pybabel extract --input-dirs=. -o data/locales/bot.pot --project=bot
 
 - Создаем файлы с переводами на разные языки
-pybabel init -i data/locales/bot.pot -d locales -D bot -l en
-pybabel init -i data/locales/bot.pot -d locales -D bot -l ru
-pybabel init -i data/locales/bot.pot -d locales -D bot -l uk
+pybabel init -i data/locales/bot.pot -d data/locales -D bot -l en
+pybabel init -i data/locales/bot.pot -d data/locales -D bot -l ru
+pybabel init -i data/locales/bot.pot -d data/locales -D bot -l uk
 
 - После того как все текста переведены, нужно скомпилировать все переводы
-pybabel compile -d locales -D bot
+pybabel compile -d data/locales -D bot
 """
 
 from aiogram import types

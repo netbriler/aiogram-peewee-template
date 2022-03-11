@@ -6,9 +6,9 @@ from loader import dp, _
 
 
 @dp.message_handler(CommandStart())
-async def bot_start(message: Message):
+async def bot_start(message: Message, user):
     text = _('Привет, {full_name}!\n'
-             'Выбери свой язык').format(full_name=message.from_user.full_name)
+             'Выбери свой язык').format(full_name=user.name)
 
     await message.answer(text, reply_markup=get_language_inline_markup())
 

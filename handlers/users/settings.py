@@ -7,8 +7,7 @@ from services.users import edit_user_language
 
 
 @dp.callback_query_handler(Regexp('^lang_(\w\w)$'))
-async def change_language(callback_query: CallbackQuery, regexp: Regexp):
-    session = callback_query.bot.get('session')
+async def change_language(callback_query: CallbackQuery, regexp: Regexp, session):
     language = regexp.group(1)
 
     await edit_user_language(session, callback_query.from_user.id, language)
@@ -20,6 +19,6 @@ async def change_language(callback_query: CallbackQuery, regexp: Regexp):
 
 @dp.message_handler(commands='lang')
 async def bot_start(message: Message):
-    text = _('Выбери свой язык').format(full_name=message.from_user.full_name)
+    text = _('Выбери свой язык')
 
     await message.answer(text, reply_markup=get_language_inline_markup())

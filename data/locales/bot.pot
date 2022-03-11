@@ -1,0 +1,39 @@
+# Translations template for bot.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the bot project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: bot VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-03-11 18:07+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: handlers/users/settings.py:15
+msgid ""
+"Язык успешно изменен \n"
+"Нажми /help чтобы узнать чем я могу тебе помочь"
+msgstr ""
+
+#: handlers/users/settings.py:22
+msgid "Выбери свой язык"
+msgstr ""
+
+#: handlers/users/start.py:10
+msgid ""
+"Привет, {full_name}!\n"
+"Выбери свой язык"
+msgstr ""
+
+#: middlewares/throttling.py:33
+msgid "Слишком много запросов!"
+msgstr ""
+

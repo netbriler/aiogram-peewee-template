@@ -27,6 +27,7 @@ services:
 
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      REDIS_DB: 5
 
       WEBHOOK_HOST: ${WEBHOOK_HOST:-localhost}
       WEBHOOK_PATH: ${WEBHOOK_PATH}
