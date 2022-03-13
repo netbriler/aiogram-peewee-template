@@ -6,11 +6,11 @@ services:
     build: .
     restart: always
     ports:
-      - '${PORT:-8000}:8000'
+      - '${PORT}:8000'
     entrypoint:
-      - ./entrypoint.sh
+      - ./bin/entrypoint.sh
     volumes:
-      - ./data/logs:/usr/src/app/data/logs
+      - ./data/logs:/app/data/logs
     depends_on:
       - postgres
       - redis

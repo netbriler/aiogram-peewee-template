@@ -134,3 +134,4 @@ dmypy.json
 .env
 
 data/database.sqlite3
+data/backups

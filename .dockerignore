@@ -12,3 +12,4 @@ docker-compose.yml
 **/.DS_Store
 **/venv
 **/env
+data/backups

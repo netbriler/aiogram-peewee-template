@@ -28,4 +28,4 @@ RUN pip install --no-cache /wheels/*
 
 COPY . .
 
-ENTRYPOINT ['/entrypoint.sh']
+ENTRYPOINT ['/bin/entrypoint.sh']
