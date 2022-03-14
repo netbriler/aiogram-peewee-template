@@ -1,6 +1,6 @@
 from aiogram.types import Message
 
-from keyboards.default import get_default_markup
+from bot.keyboards.default import get_default_markup
 from loader import dp, _
 from models import User
 

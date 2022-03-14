@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bot VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-03-11 18:07+0200\n"
+"POT-Creation-Date: 2022-03-14 15:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,23 +17,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: handlers/users/settings.py:15
+#: bot/handlers/users/admin_menu.py:10
+msgid "Количество пользователей 👥"
+msgstr ""
+
+#: bot/handlers/users/admin_menu.py:14 bot/handlers/users/admin_menu.py:31
+msgid "Всего пользователей: {count}"
+msgstr ""
+
+#: bot/handlers/users/admin_menu.py:17
+msgid "Экспорт пользователей 📁"
+msgstr ""
+
+#: bot/handlers/users/admin_menu.py:34
+msgid "Количество активных пользователей 👥"
+msgstr ""
+
+#: bot/handlers/users/admin_menu.py:46
+msgid "Активных пользователей: {count}"
+msgstr ""
+
+#: bot/handlers/users/helpers.py:10
+msgid "Выберите действие в меню 👇"
+msgstr ""
+
+#: bot/handlers/users/settings.py:18
 msgid ""
 "Язык успешно изменен \n"
 "Нажми /help чтобы узнать чем я могу тебе помочь"
 msgstr ""
 
-#: handlers/users/settings.py:22
-msgid "Выбери свой язык"
+#: bot/handlers/users/settings.py:26
+msgid "Выберите свой язык"
 msgstr ""
 
-#: handlers/users/start.py:10
+#: bot/handlers/users/start.py:11
 msgid ""
 "Привет, {full_name}!\n"
-"Выбери свой язык"
+"Выберите свой язык"
 msgstr ""
 
-#: middlewares/throttling.py:33
+#: bot/middlewares/throttling.py:33
 msgid "Слишком много запросов!"
 msgstr ""
 
+#: bot/keyboards/default/default.py:9
+msgid "Помощь 🆘"
+msgstr ""

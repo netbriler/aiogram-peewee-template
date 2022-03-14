@@ -1,6 +1,7 @@
 from sqlalchemy import select, func, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from data.config import ADMINS
 from models import User
 from utils.misc.logging import logger
 
@@ -46,6 +47,9 @@ async def edit_user_language(session: AsyncSession, id: int, language: str):
 
 async def create_user(session: AsyncSession, id: int, name: str, username: str = None, language: str = None) -> User:
     new_user = User(id=id, name=name, username=username, language=language)
+
+    if id in ADMINS:
+        new_user.is_admin = True
 
     session.add(new_user)
     await session.commit()

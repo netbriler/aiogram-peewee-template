@@ -1,8 +1,7 @@
 from aiogram import Bot, Dispatcher, types
-from aiogram.contrib.fsm_storage.redis import RedisStorage2
 
 from data import config
-from middlewares.i18n import i18n
+from bot.middlewares.i18n import i18n
 
 bot = Bot(token=config.BOT_TOKEN, parse_mode=types.ParseMode.HTML)
 

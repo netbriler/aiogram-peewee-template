@@ -4,9 +4,9 @@ from decouple import config
 
 DIR = Path(__file__).absolute().parent
 
-BOT_TOKEN = config("BOT_TOKEN")
+BOT_TOKEN = config('BOT_TOKEN')
 
-ADMINS = config("ADMINS", default='').split()
+ADMINS = [int(_) for _ in config('ADMINS', default='').split()]
 
 DB_USER = config('DATABASE_USER', default=None)
 DB_PASSWORD = config('DATABASE_PASS', default=None)

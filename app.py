@@ -15,9 +15,8 @@ async def on_startup(dispatcher):
 
 
 if __name__ == '__main__':
-    from middlewares import setup_middleware
-    import filters
-    import handlers
+    from bot.middlewares import setup_middleware
+    from bot import filters, handlers
 
     setup_middleware(dp)
 
