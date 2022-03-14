@@ -1,7 +1,7 @@
 from sqlalchemy import select, func, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from utils.db.models import User
+from models import User
 from utils.misc.logging import logger
 
 

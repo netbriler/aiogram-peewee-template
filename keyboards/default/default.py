@@ -4,6 +4,8 @@ from aiogram.types import ReplyKeyboardMarkup
 def get_default_markup(user):
     markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
 
+    markup.add('Contacts ✉')
+
     if user.is_admin:
         markup.add('Экспорт пользователей 📁')
         markup.add('Количество пользователей 👥')

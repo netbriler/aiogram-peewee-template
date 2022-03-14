@@ -11,16 +11,16 @@ pybabel init -i data/locales/bot.pot -d data/locales -D bot -l uk
 pybabel compile -d data/locales -D bot
 """
 
-from aiogram import types
 from aiogram.contrib.middlewares.i18n import I18nMiddleware
+from aiogram.types import Message, User
 
 from data.config import I18N_DOMAIN, LOCALES_DIR
 from services.users import get_or_create_user
 
 
 class ACLMiddleware(I18nMiddleware):
-    async def get_user_locale(self, action, args):
-        current_telegram_user = types.User.get_current()
+    async def get_user_locale(self, action: str, args: list[Message, dict]):
+        current_telegram_user = User.get_current()
 
         user = await get_or_create_user(args[0].bot.get('session'), current_telegram_user.id,
                                         current_telegram_user.full_name, current_telegram_user.username,

@@ -1,5 +1,4 @@
 from aiogram.dispatcher.filters import BoundFilter
-from aiogram.types import Message
 
 from services.users import get_user
 

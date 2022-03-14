@@ -1,7 +1,7 @@
 from aiogram import executor
 
 from loader import dp, bot, config
-from utils.db.base import create_async_database
+from models.base import create_async_database
 from utils.misc.logging import logger
 
 
