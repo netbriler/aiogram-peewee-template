@@ -1,8 +1,22 @@
-from sqlalchemy import select, update
+from sqlalchemy import select, func, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from utils.db.models import User
 from utils.misc.logging import logger
+
+
+async def count_users(session: AsyncSession):
+    sql = select([func.count()]).select_from(User)
+    query = await session.execute(sql)
+
+    return query.scalar()
+
+
+async def get_users(session: AsyncSession) -> list[User]:
+    sql = select(User)
+    query = await session.execute(sql)
+
+    return [u for u, in query]
 
 
 async def get_user(session: AsyncSession, id: int) -> User:
