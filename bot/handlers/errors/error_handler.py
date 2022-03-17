@@ -1,3 +1,5 @@
+import traceback
+
 from aiogram.utils.exceptions import (Unauthorized, InvalidQueryID, TelegramAPIError,
                                       CantDemoteChatCreator, MessageNotModified, MessageToDeleteNotFound,
                                       MessageTextIsEmpty, RetryAfter,
@@ -46,4 +48,9 @@ async def errors_handler(update, exception):
         logger.exception(f'CantParseEntities: {exception} \nUpdate: {update}')
         return True
 
-    logger.exception(f'Update: {update} \n{exception}')
+    try:
+        raise exception
+    except:
+        exception_traceback = traceback.format_exc()
+
+    logger.exception(f'Update: {update} \n{exception_traceback}')

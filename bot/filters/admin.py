@@ -16,4 +16,4 @@ class Admin(BoundFilter):
         if not user:
             return False
 
-        return user.is_admin
+        return user.is_admin == self.is_admin
