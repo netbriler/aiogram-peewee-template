@@ -12,7 +12,7 @@ from utils.misc.logging import logger
 @dp.errors_handler()
 async def errors_handler(update, exception):
     if isinstance(exception, CantDemoteChatCreator):
-        logger.debug("Can't demote chat creator")
+        logger.debug('Can\'t demote chat creator')
         return True
 
     if isinstance(exception, MessageNotModified):

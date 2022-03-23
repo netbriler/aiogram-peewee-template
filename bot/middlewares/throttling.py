@@ -1,19 +1,25 @@
-from aiogram import types, Dispatcher
-from aiogram.dispatcher import DEFAULT_RATE_LIMIT
+from aiogram import Dispatcher
 from aiogram.dispatcher.handler import CancelHandler, current_handler
 from aiogram.dispatcher.middlewares import BaseMiddleware
+from aiogram.types import Message, CallbackQuery
 from aiogram.utils.exceptions import Throttled
 
-from loader import _
+from loader import _, config
 
 
 class ThrottlingMiddleware(BaseMiddleware):
-    def __init__(self, limit=DEFAULT_RATE_LIMIT, key_prefix='antiflood_'):
+    def __init__(self, limit: float = config.RATE_LIMIT, key_prefix: str = 'antiflood_'):
         self.rate_limit = limit
         self.prefix = key_prefix
         super(ThrottlingMiddleware, self).__init__()
 
-    async def on_process_message(self, message: types.Message, data: dict):
+    async def on_pre_process_message(self, message: Message, data: dict[str]):
+        await self._throttle(message, data)
+
+    async def on_pre_process_callback_query(self, query: CallbackQuery, data: dict[str]):
+        await self._throttle(query, data)
+
+    async def _throttle(self, message: Message, data: dict[str]):
         handler = current_handler.get()
         dispatcher = Dispatcher.get_current()
         if handler:
@@ -24,10 +30,8 @@ class ThrottlingMiddleware(BaseMiddleware):
             key = f'{self.prefix}_message'
         try:
             await dispatcher.throttle(key, rate=limit)
-        except Throttled as t:
-            await self.message_throttled(message, t)
-            raise CancelHandler()
+        except Throttled as throttled:
+            if throttled.exceeded_count <= 2:
+                await message.reply(_('Слишком много запросов!'))
 
-    async def message_throttled(self, message: types.Message, throttled: Throttled):
-        if throttled.exceeded_count <= 2:
-            await message.reply(_('Слишком много запросов!'))
+            raise CancelHandler()

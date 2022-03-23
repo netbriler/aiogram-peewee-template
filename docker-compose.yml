@@ -17,6 +17,7 @@ services:
     environment:
       ADMINS: ${ADMINS}
       BOT_TOKEN: ${BOT_TOKEN}
+      RATE_LIMIT: ${RATE_LIMIT:-0.5}
 
       DATABASE_USER: postgres
       DATABASE_PASS: postgres

@@ -15,5 +15,3 @@ else:
 dp = Dispatcher(bot, storage=storage, run_tasks_by_default=True)
 
 _ = i18n.gettext
-
-dp.middleware.setup(i18n)
