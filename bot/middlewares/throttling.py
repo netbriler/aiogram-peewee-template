@@ -17,7 +17,7 @@ class ThrottlingMiddleware(BaseMiddleware):
         await self._throttle(message, data)
 
     async def on_pre_process_callback_query(self, query: CallbackQuery, data: dict[str]):
-        await self._throttle(query, data)
+        await self._throttle(query.message, data)
 
     async def _throttle(self, message: Message, data: dict[str]):
         handler = current_handler.get()
