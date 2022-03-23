@@ -7,14 +7,14 @@ from loader import dp, bot, config, _
 from services.users import count_users, get_users
 
 
-@dp.message_handler(lambda m: m.text == _('Количество пользователей 👥'), is_admin=True, state='*')
+@dp.message_handler(i18n_text='Количество пользователей 👥', is_admin=True, state='*')
 async def _users_count(message: Message, session: AsyncSession):
     count = await count_users(session)
 
     await message.answer(_('Всего пользователей: {count}').format(count=count))
 
 
-@dp.message_handler(lambda m: m.text == _('Экспорт пользователей 📁'), is_admin=True, state='*')
+@dp.message_handler(i18n_text='Экспорт пользователей 📁', is_admin=True, state='*')
 async def _export_users(message: Message, session: AsyncSession):
     count = await count_users(session)
 
@@ -31,7 +31,7 @@ async def _export_users(message: Message, session: AsyncSession):
     await message.answer_document(text_file, caption=_('Всего пользователей: {count}').format(count=count))
 
 
-@dp.message_handler(lambda m: m.text == _('Количество активных пользователей 👥'), is_admin=True, state='*')
+@dp.message_handler(i18n_text='Количество активных пользователей 👥', is_admin=True, state='*')
 async def _active_users_count(message: Message, session: AsyncSession):
     users = await get_users(session)
 

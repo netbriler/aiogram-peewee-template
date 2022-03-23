@@ -5,6 +5,6 @@ def setup_middleware(dp):
     from .i18n import i18n
 
     dp.middleware.setup(UsersMiddleware())
+    dp.middleware.setup(i18n)
     dp.middleware.setup(ThrottlingMiddleware())
     dp.middleware.setup(LoggingMiddleware())
-    dp.middleware.setup(i18n)

@@ -14,7 +14,7 @@ async def _start(message: Message, user: User):
     await message.answer(text, reply_markup=get_language_inline_markup())
 
 
-@dp.message_handler(lambda m: m.text == _('Помощь 🆘'), is_admin=True, state='*')
+@dp.message_handler(i18n_text='Помощь 🆘', is_admin=True, state='*')
 @dp.message_handler(CommandHelp())
 async def _help(message: Message):
     await message.answer_sticker('CAACAgIAAxkBAAIBR2IvSpW_RM-rKHtq0JtMQeiZ93tAAAIoAAOPC94R1Or-ytaZqY8jBA')

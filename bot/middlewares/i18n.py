@@ -27,5 +27,14 @@ class ACLMiddleware(I18nMiddleware):
     def set_user_locale(self, locale: str):
         self.ctx_locale.set(locale)
 
+    async def trigger(self, action, args):
+        if action.startswith('pre_process'):
+            self.ctx_locale.set('en')
+
+        if 'update' not in action and 'error' not in action and action.startswith('process'):
+            locale = await self.get_user_locale(action, args)
+            self.set_user_locale(locale)
+            return True
+
 
 i18n = ACLMiddleware(I18N_DOMAIN, LOCALES_DIR)
