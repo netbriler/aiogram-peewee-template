@@ -6,12 +6,12 @@ from loader import _
 def get_default_markup(user):
     markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
 
-    markup.add(_('Помощь 🆘'))
+    markup.add(_('Help 🆘'))
 
     if user.is_admin:
-        markup.add(_('Экспорт пользователей 📁'))
-        markup.add(_('Количество пользователей 👥'))
-        markup.add(_('Количество активных пользователей 👥'))
+        markup.add(_('Export users 📁'))
+        markup.add(_('Count users 👥'))
+        markup.add(_('Count active users 👥'))
 
     if len(markup.keyboard) < 1:
         return ReplyKeyboardRemove()

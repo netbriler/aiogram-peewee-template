@@ -16,14 +16,14 @@ async def change_language(callback_query: CallbackQuery, regexp: Regexp, session
     await edit_user_language(session, callback_query.from_user.id, language)
     i18n.set_user_locale(language)
 
-    await callback_query.message.answer(_('Язык успешно изменен \n'
-                                          'Нажми /help чтобы узнать чем я могу тебе помочь'),
+    await callback_query.message.answer(_('Language changed successfully\n'
+                                          'Press /help to find out how I can help you'),
                                         reply_markup=get_default_markup(user))
     await callback_query.message.delete()
 
 
 @dp.message_handler(commands=['lang', 'settings'])
 async def bot_start(message: Message):
-    text = _('Выберите свой язык')
+    text = _('Choose your language')
 
     await message.answer(text, reply_markup=get_language_inline_markup())

@@ -10,13 +10,13 @@ psql:
 	docker-compose exec postgres psql -U postgres postgres
 
 pg_dump:
-	docker-compose exec -T postgres pg_dump -U postgres postgres --no-owner \
+	mkdir -p data/backups/postgres && docker-compose exec -T postgres pg_dump -U postgres postgres --no-owner \
 	| gzip -9 > data/backups/postgres/backup-$(shell date +%Y-%m-%d_%H-%M-%S).sql.gz
 
 pg_restore:
-	bash ./bin/pg_restore.sh ${BACKUPS_PATH}
+	mkdir -p data/backups/postgres && bash ./bin/pg_restore.sh ${BACKUPS_PATH}
 
-bot:
+exec:
 	docker-compose exec bot /bin/bash
 
 logs:
@@ -27,3 +27,15 @@ restart:
 
 stop:
 	docker-compose stop
+
+pybabel_extract:
+	pybabel extract --input-dirs=. -o data/locales/bot.pot --project=bot
+
+pybabel_init:
+	pybabel init -i data/locales/bot.pot -d data/locales -D bot -l ${RUN_ARGS}
+
+pybabel_compile:
+	pybabel compile -d data/locales -D bot --statistics
+
+pybabel_update:
+	pybabel update -i data/locales/bot.pot -d data/locales -D bot

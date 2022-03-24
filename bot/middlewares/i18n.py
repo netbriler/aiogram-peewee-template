@@ -8,7 +8,10 @@ pybabel init -i data/locales/bot.pot -d data/locales -D bot -l ru
 pybabel init -i data/locales/bot.pot -d data/locales -D bot -l uk
 
 - После того как все текста переведены, нужно скомпилировать все переводы
-pybabel compile -d data/locales -D bot
+pybabel compile -d data/locales -D bot --statistics
+
+pybabel update -i data/locales/bot.pot -d data/locales -D bot
+
 """
 
 from aiogram.contrib.middlewares.i18n import I18nMiddleware

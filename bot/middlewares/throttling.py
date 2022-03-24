@@ -32,6 +32,6 @@ class ThrottlingMiddleware(BaseMiddleware):
             await dispatcher.throttle(key, rate=limit)
         except Throttled as throttled:
             if throttled.exceeded_count <= 2:
-                await message.reply(_('Слишком много запросов!'))
+                await message.reply(_('Too many requests!'))
 
             raise CancelHandler()
