@@ -14,7 +14,7 @@ WEBHOOK_PATH = config.WEBHOOK_PATH
 WEBHOOK_URL = f'{WEBHOOK_HOST}{WEBHOOK_PATH}'
 
 WEBAPP_HOST = '0.0.0.0'
-WEBAPP_PORT = 8000
+WEBAPP_PORT = config.WEBHOOK_PORT
 
 
 async def on_startup(dp: Dispatcher):
