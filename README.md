@@ -204,17 +204,17 @@ and finaly translate and compile again
 │   ├───filters         # some aiogram filters
 │   ├───handlers
 │   │   ├───errors      # error handlers
-│   │   ├───users       # message handlers
+│   │   └───users       # message handlers
 │   ├───keyboards
 │   │   ├───default     # aiogram markups
-│   │   ├───inline      # aiogram inline markups
+│   │   └───inline      # aiogram inline markups
 │   ├───middlewares     # aiogram middlewares
-│   ├───states          # aiogram states
+│   └───states          # aiogram states
 ├───data
 │   ├───backups         # database backups
 │   │   └───postgres
 │   ├───locales         # i18n locales
-│   ├───logs            # bot logs
+│   └───logs            # bot logs
 ├───models              # database models
 ├───services            # database services
 └───utils               # some helpful things
