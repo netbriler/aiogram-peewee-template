@@ -1,4 +1,4 @@
-# Этап, на котором выполняются подготовительные действия
+# preparatory actions stage
 FROM python:3.9-slim as builder
 
 WORKDIR /app
@@ -12,14 +12,12 @@ RUN apt-get update && \
 COPY requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
-# Финальный этап
+# final stage
 FROM python:3.9-slim
-
-WORKDIR /app
 
 RUN addgroup --system app && adduser --system --group app
 
-USER app
+WORKDIR /app
 
 COPY --from=builder /app/wheels /wheels
 COPY --from=builder /app/requirements.txt .
@@ -27,5 +25,10 @@ COPY --from=builder /app/requirements.txt .
 RUN pip install --no-cache /wheels/*
 
 COPY . .
+
+RUN chown -R app:app ./* \
+    && chmod -R 777 ./*
+
+USER app
 
 ENTRYPOINT ['/bin/entrypoint.sh']
