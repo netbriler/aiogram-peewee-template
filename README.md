@@ -114,6 +114,10 @@ WEBHOOK_PATH=/path/to/webhook            # some custom path to webhook where tel
 ## Docker 
 ### Start bot
 ```bash
+# grant execution rights
+$ chmod +x ./bin/entrypoint.sh
+$ chmod -R 777 ./data/logs/
+
 $ docker-compose -f docker-compose.yml up --build -d
 # or if you have make you can simply type 
 $ make run

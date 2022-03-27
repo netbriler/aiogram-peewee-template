@@ -4,7 +4,7 @@ $(eval $(RUN_ARGS):;@:)
 BACKUPS_PATH := ./data/backups/postgres
 
 run:
-	chmod +x ./bin/entrypoint.sh && docker-compose -f docker-compose.yml up --build -d
+	docker-compose -f docker-compose.yml up --build -d
 
 psql:
 	docker-compose exec postgres psql -U postgres postgres
