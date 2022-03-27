@@ -120,6 +120,7 @@ $ make run
 # or only make
 $ make 
 ```
+if you are using webhook you should <a href="https://github.com/netbriler/aiogram-sqlalchemy-template/blob/master/docker-compose.yml#L8">uncomment ports line</a> in `docker-compose.yml`
 ### Manage bot container
 ```bash
 $ docker-compose exec bot /bin/bash
@@ -189,13 +190,13 @@ $ pybabel compile -d data/locales -D bot --statistics
 $ make pybabel_compile
 ```
 #### Update locales
-to add new messages to already existing translations you should extract again and then write this command
+to add new messages to already existing translations you should `extract again` and then write this command
 ```bash
 $ pybabel update -i data/locales/bot.pot -d data/locales -D bot
 # or if you have make you can simply type 
 $ make pybabel_update
 ```
-and finaly translate and compile again
+and finaly translate and `compile again`
 
 ## Bot structure
 ```bash
