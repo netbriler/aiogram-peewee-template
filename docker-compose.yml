@@ -9,8 +9,6 @@ services:
 #      - '${WEBHOOK_PORT}:${WEBHOOK_PORT:-8000}'
     entrypoint:
       - ./bin/entrypoint.sh
-    volumes:
-      - ./data/logs:/app/data/logs:rw
     depends_on:
       - postgres
       - redis

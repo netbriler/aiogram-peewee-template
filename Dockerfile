@@ -15,7 +15,7 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.t
 # final stage
 FROM python:3.9-slim
 
-RUN addgroup --system app && adduser --system --group app
+RUN addgroup --system app && adduser --system --group app --home /app
 
 WORKDIR /app
 
@@ -26,8 +26,7 @@ RUN pip install --no-cache /wheels/*
 
 COPY . .
 
-RUN chown -R app:app ./* \
-    && chmod -R 777 ./*
+RUN chown -R app:app ./* && chmod -R 777 ./*
 
 USER app
 
