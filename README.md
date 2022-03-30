@@ -117,7 +117,7 @@ WEBHOOK_PATH=/path/to/webhook            # some custom path to webhook where tel
 # grant execution rights
 $ chmod +x ./bin/entrypoint.sh
 
-$ docker-compose -f docker-compose.yml up --build -d
+$ docker-compose up -d --force-recreate
 # or if you have make you can simply type 
 $ make run
 # or only make
@@ -141,6 +141,12 @@ $ make logs
 $ docker-compose restart bot
 # or if you have make you can simply type 
 $ make restart
+```
+### Rebuild bot
+```bash
+$ docker-compose build --no-cache
+# or if you have make you can simply type 
+$ make build
 ```
 ### Stop bot
 ```bash
