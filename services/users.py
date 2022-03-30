@@ -6,6 +6,7 @@ from models import User
 from utils.misc.logging import logger
 
 
+# TODO save execute
 async def count_users(session: AsyncSession):
     sql = select([func.count()]).select_from(User)
     query = await session.execute(sql)

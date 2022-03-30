@@ -31,6 +31,12 @@ restart:
 stop:
 	docker-compose stop
 
+db_revision:
+	docker-compose exec bot alembic revision --autogenerate ${RUN_ARGS}
+
+db_upgrade:
+	docker-compose exec bot alembic upgrade head
+
 pybabel_extract:
 	pybabel extract --input-dirs=. -o ./data/locales/bot.pot --project=bot
 

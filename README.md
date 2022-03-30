@@ -1,6 +1,6 @@
 # <p align="center">Powerful aiogram template
 
-<p align="center"><a href="https://core.telegram.org/bots/api">Telegram Bot API</a> template, with <a href="https://docs.aiogram.dev/en/latest/">aiogram</a>, <a href="https://www.sqlalchemy.org/">sqlalcermy</a> and <a href="https://www.docker.com/">docker</a></p>
+<p align="center"><a href="https://core.telegram.org/bots/api">Telegram Bot API</a> template, with <a href="https://docs.aiogram.dev/en/latest/">aiogram</a>, <a href="https://www.sqlalchemy.org/">sqlalcermy</a> + <a href="https://alembic.sqlalchemy.org/">alembic</a> and <a href="https://www.docker.com/">docker</a></p>
 
 
 <img src="https://i.imgur.com/7sJbAg7.png" width="100%" height="100%" />
@@ -25,6 +25,9 @@
     * [Stop bot](#stop-bot)
     * [Database postgres](#database-postgres)
         * [Manage postgres via psql](#manage-postgres-via-psql)
+        * [Alembic migrations](#alembic-migrations)
+            * [Create revision](#create-revision)
+            * [Upgrade database](#upgrade-database)
         * [Backup and restore](#backup-and-restore)
             * [Dump database](#dump-database)
             * [Restore database](#restore-database)
@@ -122,6 +125,11 @@ $ docker-compose up -d --force-recreate
 $ make run
 # or only make
 $ make 
+
+# database migration
+$ docker-compose exec bot alembic upgrade head
+# or if you have make you can simply type 
+$ make db_update
 ```
 if you are using webhook you should <a href="https://github.com/netbriler/aiogram-sqlalchemy-template/blob/master/docker-compose.yml#L8">uncomment ports line</a> in `docker-compose.yml`
 ### Manage bot container
@@ -161,6 +169,20 @@ $ docker-compose exec postgres psql -U postgres postgres
 # or if you have make you can simply type 
 $ make psql
 ```
+#### Alembic migrations
+##### Create revision
+```bash
+$ docker-compose exec bot alembic revision --autogenerate -m "<some revision message>"
+# or if you have make you can simply type 
+$ make db_revision -m "<some revision message>"
+```
+##### Upgrade database
+```bash
+$ docker-compose exec bot alembic upgrade head
+# or if you have make you can simply type 
+$ make db_upgrade
+```
+you can get more information on <a href="https://alembic.sqlalchemy.org/en/latest/tutorial.html#create-a-migration-script">alembic docs</a>
 #### Backup and restore
 
 ##### Dump database
