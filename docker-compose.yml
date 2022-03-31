@@ -37,7 +37,6 @@ services:
     command: redis-server
     volumes:
       - redis_data:/var/lib/redis
-      - redis_conf:/usr/local/etc/redis/redis.conf
     environment:
       - REDIS_REPLICATION_MODE=master
 
@@ -52,5 +51,4 @@ services:
 
 volumes:
   redis_data:
-  redis_conf:
   postgres_data:
