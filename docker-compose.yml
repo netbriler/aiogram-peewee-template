@@ -35,8 +35,6 @@ services:
   redis:
     image: redis:alpine
     command: redis-server
-    volumes:
-      - redis_data:/var/lib/redis
     environment:
       - REDIS_REPLICATION_MODE=master
 
@@ -50,5 +48,4 @@ services:
 
 
 volumes:
-  redis_data:
   postgres_data:

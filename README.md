@@ -35,6 +35,8 @@
         * [Create locales](#create-locales)
         * [Update locales](#update-locales)
   * [Bot structure](#bot-structure)
+  * [Auto deploy](#auto-deploy)
+     * [Configure secrets](configure-secrets)
   
 <hr>
 
@@ -252,3 +254,18 @@ and finaly translate and `compile again`
 └───utils               # some helpful things
 ```
 
+## Auto deploy
+Automatically deploy bot to your server by ssh using github actions
+### Configure secrets
+you should configure github actions secrets on `https://github.com/<username>/<repo>/settings/secrets/actions`
+<img src="https://i.imgur.com/xqXhsq3.png" width="100%" height="100%" />
+
+`HOST` - ssh server
+
+`PORT` - ssh server port, by default 22
+
+`USERNAME` - ssh username
+
+`KEY` - private ssh key
+
+`PROJECT_PATH` - path to your cloned repository
