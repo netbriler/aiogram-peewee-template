@@ -7,14 +7,8 @@ from loader import dp, bot, config, _
 from services.users import count_users, get_users
 
 
-@dp.message_handler(i18n_text='Count users 👥', is_admin=True, state='*')
-async def _users_count(message: Message, session: AsyncSession):
-    count = await count_users(session)
-
-    await message.answer(_('Total users: {count}').format(count=count))
-
-
-@dp.message_handler(i18n_text='Export users 📁', is_admin=True, state='*')
+@dp.message_handler(i18n_text='Export users 📁', is_admin=True)
+@dp.message_handler(commands=['export_users'])
 async def _export_users(message: Message, session: AsyncSession):
     count = await count_users(session)
 
@@ -31,7 +25,16 @@ async def _export_users(message: Message, session: AsyncSession):
     await message.answer_document(text_file, caption=_('Total users: {count}').format(count=count))
 
 
-@dp.message_handler(i18n_text='Count active users 👥', is_admin=True, state='*')
+@dp.message_handler(i18n_text='Count users 👥', is_admin=True)
+@dp.message_handler(commands=['count_users'])
+async def _users_count(message: Message, session: AsyncSession):
+    count = await count_users(session)
+
+    await message.answer(_('Total users: {count}').format(count=count))
+
+
+@dp.message_handler(i18n_text='Count active users 👥', is_admin=True)
+@dp.message_handler(commands=['count_active_users'])
 async def _active_users_count(message: Message, session: AsyncSession):
     users = await get_users(session)
 

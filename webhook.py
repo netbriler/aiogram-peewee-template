@@ -3,6 +3,7 @@ import logging
 from aiogram import Dispatcher
 from aiogram.utils.executor import start_webhook
 
+from bot.commands import set_default_commands
 from loader import dp, bot, config
 from models.base import create_async_database
 from utils.misc.logging import logger
@@ -17,7 +18,7 @@ WEBAPP_HOST = '0.0.0.0'
 WEBAPP_PORT = config.WEBHOOK_PORT
 
 
-async def on_startup(dp: Dispatcher):
+async def on_startup(dispatcher: Dispatcher):
     logger.info('Bot startup')
     logger.info(f'{WEBHOOK_URL=}')
 
@@ -28,8 +29,10 @@ async def on_startup(dp: Dispatcher):
     for admin_id in config.ADMINS:
         await bot.send_message(admin_id, 'Бот успешно запущен')
 
+    await set_default_commands()
 
-async def on_shutdown(dp: Dispatcher):
+
+async def on_shutdown(dispatcher: Dispatcher):
     logger.warning('Shutting down..')
 
     await bot.delete_webhook()
@@ -37,7 +40,7 @@ async def on_shutdown(dp: Dispatcher):
     await dp.storage.close()
     await dp.storage.wait_closed()
 
-    await dp.bot.bot.get('session').close()
+    await dp.bot.get('session').close()
 
     logger.warning('Bye!')
 

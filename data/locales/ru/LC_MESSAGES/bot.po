@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-03-24 14:24+0200\n"
+"POT-Creation-Date: 2022-04-02 14:54+0300\n"
 "PO-Revision-Date: 2022-03-24 14:03+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,11 +19,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: bot/handlers/users/admin_menu.py:14 bot/handlers/users/admin_menu.py:31
+#: bot/commands/admin.py:11
+msgid "export users to csv"
+msgstr "экспортировать пользователей в файл csv"
+
+#: bot/commands/admin.py:12
+msgid "count users who contacted the bot"
+msgstr "количество пользователей, которые связывались с ботом"
+
+#: bot/commands/admin.py:13
+msgid "count active users (who didn't block the bot)"
+msgstr "количество активных пользователей (которые не заблокировали бота)"
+
+#: bot/commands/default.py:8
+msgid "start bot"
+msgstr "запустить бота"
+
+#: bot/commands/default.py:9
+msgid "how it works?"
+msgstr "как это работает?"
+
+#: bot/commands/default.py:10
+msgid "change language"
+msgstr "изменить язык"
+
+#: bot/commands/default.py:11
+msgid "open bot settings"
+msgstr "открыть настройки бота"
+
+#: bot/handlers/users/admin_menu.py:25 bot/handlers/users/admin_menu.py:33
 msgid "Total users: {count}"
 msgstr "Всего пользователей: {count}"
 
-#: bot/handlers/users/admin_menu.py:46
+#: bot/handlers/users/admin_menu.py:49
 msgid "Active users: {count}"
 msgstr "Активных пользователей: {count}"
 
@@ -31,7 +59,7 @@ msgstr "Активных пользователей: {count}"
 msgid "Choose an action from the menu 👇"
 msgstr "Выберите действие в меню 👇"
 
-#: bot/handlers/users/settings.py:19
+#: bot/handlers/users/settings.py:21
 msgid ""
 "Language changed successfully\n"
 "Press /help to find out how I can help you"
@@ -39,11 +67,11 @@ msgstr ""
 "Язык успешно изменен \n"
 "Нажми /help чтобы узнать чем я могу тебе помочь"
 
-#: bot/handlers/users/settings.py:27
+#: bot/handlers/users/settings.py:30
 msgid "Choose your language"
 msgstr "Выберите свой язык"
 
-#: bot/handlers/users/start.py:11
+#: bot/handlers/users/start.py:15
 msgid ""
 "Hi {full_name}!\n"
 "Choose your language"
@@ -54,6 +82,10 @@ msgstr ""
 #: bot/keyboards/default/default.py:9
 msgid "Help 🆘"
 msgstr "Помощь 🆘"
+
+#: bot/keyboards/default/default.py:9
+msgid "Settings 🛠"
+msgstr "Настройки 🛠"
 
 #: bot/keyboards/default/default.py:12
 msgid "Export users 📁"
