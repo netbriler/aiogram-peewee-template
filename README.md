@@ -3,7 +3,7 @@
 <p align="center"><a href="https://core.telegram.org/bots/api">Telegram Bot API</a> template, with <a href="https://docs.aiogram.dev/en/latest/">aiogram</a>, <a href="https://www.sqlalchemy.org/">sqlalcermy</a> + <a href="https://alembic.sqlalchemy.org/">alembic</a> and <a href="https://www.docker.com/">docker</a></p>
 
 
-<img src="https://i.imgur.com/7sJbAg7.png" width="100%" height="100%" />
+<img src="https://i.imgur.com/h0Umovn.png" width="100%" height="100%" />
 
 
 
