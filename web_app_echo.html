@@ -93,7 +93,6 @@ Telegram.WebApp.onEvent('mainButtonClicked', (e) => {
     else {
         window.Telegram.WebApp.MainButton.showProgress(true);
         window.Telegram.WebApp.MainButton.setText('Cancel');
-        alert(document.getElementById('dataInput').value)
         window.Telegram.WebApp.sendData(document.getElementById('dataInput').value);
     }
 

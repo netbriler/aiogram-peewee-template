@@ -1,16 +1,15 @@
 import time
 
-from aiogram.types import Message, ContentTypes, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+from aiogram.types import Message, ContentTypes, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo, \
+    MenuButtonWebApp
 
 from loader import dp, bot
 from models import User
 
 
-@dp.message_handler(commands=['test'])
+@dp.message_handler(commands=['web_app_test'])
 async def _web_app_init(message: Message, user: User):
     web_app_uri = 'https://aiogram-sqlalchemy-template.vercel.app/web_app_echo.html?time=' + str(time.time())
-
-    print(web_app_uri)
 
     web_app = WebAppInfo(url=web_app_uri)
 
@@ -26,6 +25,4 @@ async def _web_app_init(message: Message, user: User):
 
 @dp.message_handler(content_types=[ContentTypes.WEB_APP_DATA])
 async def _web_app(message: Message, user: User):
-    print(message)
-
-    await message.answer(message.web_app_data.data)
+    await message.answer(message.web_app_data)
