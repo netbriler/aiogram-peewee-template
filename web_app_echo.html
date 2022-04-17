@@ -1,106 +1,287 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="MobileOptimized" content="176"/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="robots" content="noindex,nofollow"/>
+    <title></title>
+    <script src="https://telegram.org/js/telegram-web-app.js?1"></script>
+    <script src="https://unpkg.com/bowser@2.4.0/es5.js"></script>
+    <script>
+        function setThemeClass() {
+            document.documentElement.className = Telegram.WebApp.colorScheme;
+        }
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Hello, world!</title>
+        Telegram.WebApp.onEvent('themeChanged', setThemeClass);
+        setThemeClass();
 
-<style>
+    </script>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
 
-body {
-     background-color: var(--tg-theme-bg-color);
-     color: var(--tg-theme-text-color);
-     max-height: var(--tg-viewport-stable-height);
-}
+        section {
+            -ms-overflow-style: none;
+        }
 
-nav{
-    top: 0;
-    position: sticky;
-    background-color: var(--tg-theme-bg-color);
-    padding-bottom: 1px;
-}
+        body {
+            font-family: sans-serif;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #222222);
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            color-scheme: var(--tg-color-scheme);
+            border: dashed green 2px;
+        }
 
-textarea:focus, input:focus{
-    outline: none;
-}
+        #viewportStable, #viewport {
+            padding: 2px;
+            font-size: 9px;
+            color: white;
+            position: fixed;
+            top: 0;
+        }
 
-#dataInput{
-     background-color: var(--tg-theme-bg-color);
-     color: var(--tg-theme-text-color);
-     box-shadow: none;
-     border-color: var(--tg-theme-hint-color);
-}
+        #viewportStable {
+            left: 0;
+            background-color: green;
+        }
 
-*::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: var(--tg-theme-bg-color);
-}
+        #viewport {
+            right: 0;
+            background-color: silver;
+        }
 
-*::-webkit-scrollbar
-{
-	width: 6px;
-	background-color: var(--tg-theme-bg-color);
-}
+        a {
+            color: var(--tg-theme-link-color, #2678b6);
+        }
 
-*::-webkit-scrollbar-thumb
-{
-	background-color: var(--tg-theme-text-color);
-}
+        button {
+            display: block;
+            width: 100%;
+            font-size: 14px;
+            margin: 15px 0;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: var(--tg-theme-button-color, #50a8eb);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            cursor: pointer;
+        }
 
-</style>
+        button[disabled] {
+            opacity: 0.6;
+            cursor: auto;
+            pointer-events: none;
+        }
 
+        section {
+            padding: 0 8px;
+            text-align: center;
+            max-height: calc(var(--tg-viewport-height, 100%) - 4px);
+            overflow: scroll;
+        }
+
+        p {
+            margin: 40px 0 15px;
+        }
+
+        ul {
+            text-align: left;
+        }
+
+        li {
+            color: var(--tg-theme-hint-color, #a8a8a8);
+        }
+
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 7px;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, .07);
+            border-radius: 4px;
+            padding: 4px;
+            margin: 7px 0;
+            word-break: break-all;
+            word-break: break-word;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        .dark pre {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .hint {
+            font-size: .8em;
+            color: var(--tg-theme-hint-color, #a8a8a8);
+        }
+
+        .ok {
+            color: green;
+        }
+
+        .err {
+            color: red;
+        }
+
+        small {
+            font-size: 12px;
+        }
+    </style>
 </head>
-<body>
-<div class="container">
-        <nav>
-        <form>
-          <div class="mb-3">
-            <label for="dataInput" class="form-label">Data</label>
-            <input type="text" class="form-control" id="dataInput" placeholder="">
-          </div>
-        </form>
-    </nav>
 
-    <pre id="content"></pre>
+<body>
+
+<div id="frame">
+    <span id="viewportStable"></span>
+    <span id="viewport"></span>
 </div>
 
+<section>
+    <h1 id="greeting"></h1>
 
-<script>
-function printData(obj){
-    const str = JSON.stringify(window.Telegram.WebApp, undefined, 4);
-    document.getElementById('content').innerHTML = str;
-}
+    <div id="buttons">
+        <button onclick="webviewExpand();">Expand Webview</button>
+        <small>(The window goes fullscreen)</small>
+        <button onclick="toggleMainButton(this);">Hide Main Button</button>
+        <small>(It hides/shows main button)</small>
+        <button id="btnTime" onclick="sendTime(10);">Send time</button>
+        <small>(The bot will recieve a message with filled <code>web_app_data</code> field)</small>
+    </div>
 
-printData(window.Telegram.WebApp);
+    <h3>Test links</h3>
+    <ul>
+        <li><a href="?nextpage=1">Regular link #1</a> (opens inside webview)</li>
+        <li><a href="https://telegram.org/" target="_blank">target="_blank" link</a> (opens outside webview)</li>
+        <li><a href="javascript:window.open('https://telegram.org/');">window.open() link</a> (opens outside
+            webview)
+        </li>
+        <li><a href="https://t.me/like">LikeBot t.me link</a> (opens inside Telegram app)</li>
+    </ul>
 
-window.Telegram.WebApp.MainButton.setText('Send data');
-window.Telegram.WebApp.MainButton.show();
+    <h3>Test permissions</h3>
+    <ul>
+        <li>
+            <a href="javascript:;" onclick="return requestLocation();">Request Location</a>
+            <span id="locationData"></span>
+        </li>
+        <li>
+            <a href="javascript:;" onclick="return requestVideo();">Request Video</a>
+            <span id="videoData"></span>
+        </li>
+        <li>
+            <a href="javascript:;" onclick="return requestAudio();">Request Audio</a>
+            <span id="audioData"></span>
+        </li>
+    </ul>
 
-Telegram.WebApp.onEvent('themeChanged', () => printData(window.Telegram.WebApp));
-Telegram.WebApp.onEvent('viewportChanged', () => printData(window.Telegram.WebApp));
+    <h3>Init Data (unsafe): </h3>
+    <pre id="initDataUnsafe"></pre>
+    <h3>Theme Data: </h3>
+    <pre id="themeData"></pre>
+    <h3>Main Button: </h3>
+    <pre id="mainButton"></pre>
+    <h3>Browser Info: </h3>
+    <pre id="browserInfo"></pre>
+</section>
 
-document.querySelector('form').addEventListener('submit', e => e.preventDefault())
-Telegram.WebApp.onEvent('mainButtonClicked', (e) => {
-    if(window.Telegram.WebApp.MainButton.isProgressVisible){
-        window.Telegram.WebApp.MainButton.hideProgress();
-        window.Telegram.WebApp.MainButton.setText('Send data');
+<script type="application/javascript">
+    Telegram.WebApp.ready();
+
+    const initDataUnsafe = Telegram.WebApp.initDataUnsafe || {};
+
+    document.querySelector('#greeting').innerHTML = `Hi, ${initDataUnsafe.user.first_name}!`;
+    document.querySelector('#initDataUnsafe').innerHTML = JSON.stringify(initDataUnsafe, null, 2);
+    document.querySelector('#themeData').innerHTML = JSON.stringify(Telegram.WebApp.themeParams, null, 2);
+    document.querySelector('#mainButton').innerHTML = JSON.stringify(Telegram.WebApp.MainButton, null, 2);
+    document.querySelector('#browserInfo').innerHTML = JSON.stringify(bowser.getParser(window.navigator.userAgent), null, 2);
+
+    Telegram.WebApp.MainButton
+        .setText('CLOSE WEBVIEW')
+        .show()
+        .onClick(() => {
+            webviewClose();
+        });
+
+    Telegram.WebApp.onEvent('themeChanged', () => {
+        document.querySelector('#themeData').innerHTML = JSON.stringify(Telegram.WebApp.themeParams, null, 2);
+    });
+
+    Telegram.WebApp.onEvent('viewportChanged', () => {
+        document.querySelector('#viewportStable').innerHTML = `${window.innerWidth} x ${Telegram.WebApp.viewportStableHeight.toFixed(2)} | isExpanded: ${Telegram.WebApp.isExpanded}`;
+        document.querySelector('#viewport').innerHTML = `${window.innerWidth} x ${Telegram.WebApp.viewportHeight.toFixed(2)}`;
+    });
+
+    function toggleMainButton(el) {
+        const mainButton = Telegram.WebApp.MainButton;
+        if (mainButton.isVisible) {
+            mainButton.hide();
+            el.innerHTML = 'Show Main Button';
+        } else {
+            mainButton.show();
+            el.innerHTML = 'Hide Main Button';
+        }
     }
-    else {
-        window.Telegram.WebApp.MainButton.showProgress(true);
-        window.Telegram.WebApp.MainButton.setText('Cancel');
-        window.Telegram.WebApp.sendData(document.getElementById('dataInput').value);
+
+    function webviewExpand() {
+        Telegram.WebApp.expand();
     }
 
-    printData(window.Telegram.WebApp);
-})
+    function webviewClose() {
+        Telegram.WebApp.close();
+    }
 
+    function sendTime(spam) {
+        const repeat = spam ? 10 : 1;
+        for (let i = 0; i < repeat; i++) {
+            Telegram.WebApp.sendData(new Date().toString());
+        }
+    }
 
+    function requestLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                document.querySelector('#locationData').innerHTML = '(' + position.coords.latitude + ', ' + position.coords.longitude + ')';
+            });
+        } else {
+            document.querySelector('#locationData').innerHTML = '(Geolocation is not supported in this browser)';
+        }
+
+        return false;
+    }
+
+    function requestVideo() {
+        if (navigator.mediaDevices) {
+            navigator.mediaDevices.getUserMedia({audio: false, video: true}).then(function (stream) {
+                document.querySelector('#videoData').innerHTML = '(Access granted)';
+            });
+        } else {
+            document.querySelector('#videoData').innerHTML = '(Media devices is not supported in this browser)';
+        }
+        return false;
+    }
+
+    function requestAudio() {
+        if (navigator.mediaDevices) {
+            navigator.mediaDevices.getUserMedia({audio: true, video: false}).then(function (stream) {
+                document.querySelector('#audioData').innerHTML = '(Access granted)';
+            });
+        } else {
+            document.querySelector('#audioData').innerHTML = '(Media devices is not supported in this browser)';
+        }
+        return false;
+    }
 </script>
-
 </body>
 </html>

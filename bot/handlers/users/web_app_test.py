@@ -1,3 +1,4 @@
+import json
 import time
 
 from aiogram.types import Message, ContentTypes, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo, \
@@ -25,4 +26,9 @@ async def _web_app_init(message: Message, user: User):
 
 @dp.message_handler(content_types=[ContentTypes.WEB_APP_DATA])
 async def _web_app(message: Message, user: User):
-    await message.answer(message.web_app_data)
+    data = json.loads(message.web_app_data.data)['data']
+
+    text = f'Button text: {message.web_app_data.button_text}\n\n' \
+           f'Data:\n<pre>{data}</pre>'
+
+    await message.answer(text)
