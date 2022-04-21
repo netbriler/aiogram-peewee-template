@@ -22,7 +22,7 @@
 
     </script>
     <style>
-        *{
+        * {
             box-sizing: border-box;
         }
 
@@ -156,8 +156,8 @@
         <small>(The window goes fullscreen)</small>
         <button onclick="toggleMainButton(this);">Hide Main Button</button>
         <small>(It hides/shows main button)</small>
-        <button id="btnTime" onclick="sendTime(10);">Send time</button>
-        <small>(The bot will recieve a message with filled <code>web_app_data</code> field)</small>
+        <button id="btnTime" onclick="sendTime();">Send time</button>
+        <small id="btnTimeSmall">(The bot will recieve a message with filled <code>web_app_data</code> field)</small>
     </div>
 
     <h3>Test links</h3>
@@ -173,15 +173,15 @@
     <h3>Test permissions</h3>
     <ul>
         <li>
-            <a href="javascript:;" onclick="return requestLocation();">Request Location</a>
+            <a href="javascript:" onclick="return requestLocation();">Request Location</a>
             <span id="locationData"></span>
         </li>
         <li>
-            <a href="javascript:;" onclick="return requestVideo();">Request Video</a>
+            <a href="javascript:" onclick="return requestVideo();">Request Video</a>
             <span id="videoData"></span>
         </li>
         <li>
-            <a href="javascript:;" onclick="return requestAudio();">Request Audio</a>
+            <a href="javascript:" onclick="return requestAudio();">Request Audio</a>
             <span id="audioData"></span>
         </li>
     </ul>
@@ -199,10 +199,15 @@
 <script type="application/javascript">
     Telegram.WebApp.ready();
 
-    const initDataUnsafe = Telegram.WebApp.initDataUnsafe || {};
+    const urlParams = new URLSearchParams(new URL(window.location.href).search);
+    if (!urlParams.has('keyboard_button')) {
+        document.getElementById('btnTime').remove()
+        document.getElementById('btnTimeSmall').remove()
 
-    document.querySelector('#greeting').innerHTML = `Hi, ${initDataUnsafe.user.first_name}!`;
-    document.querySelector('#initDataUnsafe').innerHTML = JSON.stringify(initDataUnsafe, null, 2);
+        document.querySelector('#greeting').innerHTML = `Hi, ${Telegram.WebApp.initDataUnsafe.user.first_name}!`;
+        document.querySelector('#initDataUnsafe').innerHTML = JSON.stringify(Telegram.WebApp.initDataUnsafe, null, 2);
+    }
+
     document.querySelector('#themeData').innerHTML = JSON.stringify(Telegram.WebApp.themeParams, null, 2);
     document.querySelector('#mainButton').innerHTML = JSON.stringify(Telegram.WebApp.MainButton, null, 2);
     document.querySelector('#browserInfo').innerHTML = JSON.stringify(bowser.getParser(window.navigator.userAgent), null, 2);
@@ -242,11 +247,8 @@
         Telegram.WebApp.close();
     }
 
-    function sendTime(spam) {
-        const repeat = spam ? 10 : 1;
-        for (let i = 0; i < repeat; i++) {
-            Telegram.WebApp.sendData(new Date().toString());
-        }
+    function sendTime() {
+        Telegram.WebApp.sendData(new Date().toString());
     }
 
     function requestLocation() {
