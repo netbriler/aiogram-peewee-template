@@ -5,6 +5,7 @@ from decouple import config
 DIR = Path(__file__).absolute().parent
 
 BOT_TOKEN = config('BOT_TOKEN')
+TELEGRAM_TEST_SERVER = config('TELEGRAM_TEST_SERVER', default=False, cast=bool)
 ADMINS = [int(_) for _ in config('ADMINS', default='').split()]
 RATE_LIMIT = config('RATE_LIMIT', default=0.5, cast=float)
 

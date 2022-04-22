@@ -86,6 +86,12 @@ BOT_TOKEN=123452345243:Asdfasdfasf
 # example
 RATE_LIMIT=0.5 # seconds
 ```
+`TELEGRAM_TEST_SERVER` - enable [telegram test server](https://core.telegram.org/bots/webapps#using-bots-in-the-test-environment)
+```bash
+# example
+TELEGRAM_TEST_SERVER=true # enabled
+TELEGRAM_TEST_SERVER=false # disabled
+```
 ### Database
 Sqlite by default but if you want to use postgres you can configurate it
 
