@@ -4,11 +4,14 @@ from aiogram.types import Message, ContentTypes, ReplyKeyboardMarkup, KeyboardBu
 
 from loader import dp, bot
 from models import User
+from aiogram.dispatcher.filters import RegexpCommandsFilter
 
 
-@dp.message_handler(commands=['web_app_test'])
-async def _web_app_init(message: Message, user: User):
-    web_app_uri = 'https://aiogram-sqlalchemy-template.vercel.app/web_app_echo.html?time=' + str(time.time())
+@dp.message_handler(RegexpCommandsFilter(regexp_commands=['web_app_test(\shttps:(.*))?']))
+async def _web_app_init(message: Message, user: User, regexp_command):
+    web_app_uri = regexp_command.group(1).strip() if regexp_command.group(1) \
+        else 'https://aiogram-sqlalchemy-template.vercel.app/web_app_echo.html'
+    web_app_uri += '?time=' + str(time.time())
 
     markup = ReplyKeyboardMarkup(resize_keyboard=True)
     markup.add(
