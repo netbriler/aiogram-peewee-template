@@ -5,7 +5,6 @@ from aiogram.utils.executor import start_webhook
 
 from bot.commands import set_default_commands
 from loader import dp, bot, config
-from models.base import create_async_database
 from utils.misc.logging import logger
 
 logging.basicConfig(level=logging.INFO)
@@ -24,8 +23,6 @@ async def on_startup(dispatcher: Dispatcher):
 
     await bot.set_webhook(WEBHOOK_URL)
 
-    bot['session'] = await create_async_database()
-
     for admin_id in config.ADMINS:
         await bot.send_message(admin_id, 'Бот успешно запущен')
 
@@ -39,8 +36,6 @@ async def on_shutdown(dispatcher: Dispatcher):
 
     await dp.storage.close()
     await dp.storage.wait_closed()
-
-    await dp.bot.get('session').close()
 
     logger.warning('Bye!')
 

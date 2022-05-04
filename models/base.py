@@ -1,20 +1,8 @@
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker
+from peewee import Model
 
-from data.config import SQLALCHEMY_DATABASE_URI
-
-Base = declarative_base()
+from loader import database
 
 
-async def create_async_database():
-    engine = create_async_engine(SQLALCHEMY_DATABASE_URI)
-
-    async_session = sessionmaker(
-        engine, expire_on_commit=False, class_=AsyncSession
-    )
-
-    async with async_session() as session:
-        async with session.begin():
-            return session
+class BaseModel(Model):
+    class Meta:
+        database = database

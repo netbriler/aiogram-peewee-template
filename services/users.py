@@ -1,79 +1,56 @@
-from sqlalchemy import select, func, update
-from sqlalchemy.ext.asyncio import AsyncSession
+from peewee import fn
 
 from data.config import ADMINS
 from models import User
-from utils.misc import save_execute, save_commit
 from utils.misc.logging import logger
 
 
-@save_execute
-async def count_users(session: AsyncSession):
-    sql = select([func.count()]).select_from(User)
-    query = await session.execute(sql)
-
+def count_users() -> int:
+    query = User.select(fn.COUNT(User.id))
     return query.scalar()
 
 
-@save_execute
-async def get_users(session: AsyncSession) -> list[User]:
-    sql = select(User)
-    query = await session.execute(sql)
+def get_users() -> list[User]:
+    query = User.select()
 
-    return [u for u, in query]
+    return list(query)
 
 
-@save_execute
-async def get_user(session: AsyncSession, id: int) -> User:
-    sql = select(User).where(User.id == id)
-    query = await session.execute(sql)
-
-    user = query.scalar_one_or_none()
-
-    return user
+def get_user(id: int) -> User:
+    return User.get_or_none(User.id == id)
 
 
-@save_execute
-async def update_user(session: AsyncSession, user: User, name: str, username: str = None) -> User:
+def update_user(user: User, name: str, username: str = None) -> User:
     user.name = name
     user.username = username
-
-    await save_commit(session)
+    user.save()
 
     return user
 
 
-@save_execute
-async def edit_user_language(session: AsyncSession, id: int, language: str):
-    sql = update(User).where(User.id == id).values(language=language)
-
-    await session.execute(sql)
-    await save_commit(session)
+def edit_user_language(id: int, language: str):
+    query = User.update(language=language).where(User.id == id)
+    query.execute()
 
 
-@save_execute
-async def create_user(session: AsyncSession, id: int, name: str, username: str = None, language: str = None) -> User:
-    new_user = User(id=id, name=name, username=username, language=language)
+def create_user(id: int, name: str, username: str = None, language: str = None) -> User:
+    new_user = User.create(id=id, name=name, username=username, language=language)
 
     if id in ADMINS:
         new_user.is_admin = True
-
-    session.add(new_user)
-    await save_commit(session)
+        new_user.save()
 
     logger.info(f'New user {new_user}')
 
     return new_user
 
 
-@save_execute
-async def get_or_create_user(session: AsyncSession, id: int, name: str, username: str = None,
-                             language: str = None) -> User:
-    user = await get_user(session, id)
+def get_or_create_user(id: int, name: str, username: str = None, language: str = None) -> User:
+    user = get_user(id)
 
     if user:
-        user = await update_user(session, user, name, username)
+        user = update_user(user, name, username)
 
         return user
 
-    return await create_user(session, id, name, username, language)
+    return create_user(id, name, username, language)

@@ -1,22 +1,27 @@
 from datetime import datetime
 
-from sqlalchemy import Column, DateTime, Integer, String, Sequence, Boolean
+from peewee import IntegerField, CharField, BooleanField, DateTimeField
 
-from .base import Base
+from .base import BaseModel, database
 
 
-class User(Base):
-    __tablename__ = 'users'
+class User(BaseModel):
+    id = IntegerField(primary_key=True)
+    name = CharField()
+    username = CharField(default=None)
+    language = CharField(default='en')
 
-    id = Column(Integer, Sequence('user_id_seq'), primary_key=True)
-    name = Column(String)
-    username = Column(String, default=None)
-    language = Column(String, default='en')
+    is_admin = BooleanField(default=False)
 
-    is_admin = Column(Boolean, default=False)
-
-    created_at = Column(DateTime, default=lambda: datetime.utcnow())
-    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    created_at = DateTimeField(default=lambda: datetime.utcnow())
 
     def __repr__(self) -> str:
         return f'<User {self.username}>'
+
+    class Meta:
+        table_name = 'users'
+
+
+database.connect()
+database.create_tables([User])
+database.close()

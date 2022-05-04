@@ -17,11 +17,6 @@ if DB_PORT:
     DB_PORT = int(DB_PORT)
 DB_NAME = config('DATABASE_NAME', default=None)
 
-SQLALCHEMY_DATABASE_URI = f'sqlite+aiosqlite:///{DIR}/database.sqlite3'
-
-if DB_USER and DB_PASSWORD and DB_HOST and DB_PORT and DB_NAME:
-    SQLALCHEMY_DATABASE_URI = f'postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
-
 REDIS_HOST = config('REDIS_HOST', default=None)
 REDIS_PORT = config('REDIS_PORT', default=6379)
 REDIS_DB = config('REDIS_DB', default=5)

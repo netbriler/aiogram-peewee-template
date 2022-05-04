@@ -29,4 +29,3 @@ async def _help(message: Message, user: User):
         text += f'{command.command} - {command.description}\n'
 
     await message.answer(text)
-

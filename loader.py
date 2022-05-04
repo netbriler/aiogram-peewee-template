@@ -1,4 +1,5 @@
 from aiogram import Bot, Dispatcher, types
+from peewee import SqliteDatabase, PostgresqlDatabase
 
 from bot.middlewares.i18n import i18n
 from data import config
@@ -17,6 +18,12 @@ else:
     from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
     storage = MemoryStorage()
+
+if config.DB_USER and config.DB_PASSWORD and config.DB_HOST and config.DB_PORT and config.DB_NAME:
+    database = PostgresqlDatabase(config.DB_NAME, user=config.DB_USER, password=config.DB_PASSWORD,
+                                  host=config.DB_HOST, port=config.DB_PORT)
+else:
+    database = SqliteDatabase(f'{config.DIR}/database.sqlite3')
 
 dp = Dispatcher(bot, storage=storage, run_tasks_by_default=True)
 
