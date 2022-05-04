@@ -1,6 +1,6 @@
 # <p align="center">Powerful aiogram template
 
-<p align="center"><a href="https://core.telegram.org/bots/api">Telegram Bot API</a> template, with <a href="https://docs.aiogram.dev/en/latest/">aiogram</a>, <a href="http://docs.peewee-orm.com/en/latest/index.html">peewee</a> + <a href="https://alembic.peewee.org/">alembic</a> and <a href="https://www.docker.com/">docker</a></p>
+<p align="center"><a href="https://core.telegram.org/bots/api">Telegram Bot API</a> template, with <a href="https://docs.aiogram.dev/en/latest/">aiogram</a>, <a href="http://docs.peewee-orm.com/en/latest/index.html">peewee</a> and <a href="https://www.docker.com/">docker</a></p>
 
 
 <img src="https://i.imgur.com/h0Umovn.png" width="100%" height="100%" />
@@ -25,7 +25,7 @@
     * [Stop bot](#stop-bot)
     * [Database postgres](#database-postgres)
         * [Manage postgres via psql](#manage-postgres-via-psql)
-        * [Alembic migrations](#alembic-migrations)
+        * [Migrations](#migrations)
             * [Create revision](#create-revision)
             * [Upgrade database](#upgrade-database)
         * [Backup and restore](#backup-and-restore)
@@ -133,11 +133,6 @@ $ docker-compose up -d --force-recreate
 $ make run
 # or only make
 $ make 
-
-# database migration
-$ docker-compose exec bot alembic upgrade head
-# or if you have make you can simply type 
-$ make db_update
 ```
 if you are using webhook you should <a href="https://github.com/netbriler/aiogram-peewee-template/blob/master/docker-compose.yml#L8">uncomment ports line</a> in `docker-compose.yml`
 ### Manage bot container
@@ -177,20 +172,20 @@ $ docker-compose exec postgres psql -U postgres postgres
 # or if you have make you can simply type 
 $ make psql
 ```
-#### Alembic migrations
+#### Migrations
 ##### Create revision
 ```bash
-$ docker-compose exec bot alembic revision --autogenerate -m "<some revision message>"
+$ pw_migrate create --auto --database $(python _get_database_url.py) --directory ./migrations "<some revision message>"
 # or if you have make you can simply type 
-$ make db_revision -m "<some revision message>"
+$ make db_revision "<some revision message>"
 ```
 ##### Upgrade database
 ```bash
-$ docker-compose exec bot alembic upgrade head
+$ pw_migrate migrate --database $(python _get_database_url.py) --directory ./migrations
 # or if you have make you can simply type 
 $ make db_upgrade
 ```
-you can get more information on <a href="https://alembic.peewee.org/en/latest/tutorial.html#create-a-migration-script">alembic docs</a>
+you can get more information on <a href="https://github.com/klen/peewee_migrate">peewee_migrate</a>
 #### Backup and restore
 
 ##### Dump database

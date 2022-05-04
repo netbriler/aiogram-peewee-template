@@ -20,8 +20,3 @@ class User(BaseModel):
 
     class Meta:
         table_name = 'users'
-
-
-database.connect()
-database.create_tables([User])
-database.close()

@@ -2,6 +2,8 @@ RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(RUN_ARGS):;@:)
 
 BACKUPS_PATH := ./data/backups/postgres
+DATABASE_URL := $(shell python _get_database_url.py)
+MIGRATIONS_PATH := ./migrations
 
 run:
 	docker-compose up -d --force-recreate
@@ -32,10 +34,10 @@ stop:
 	docker-compose stop
 
 db_revision:
-	docker-compose exec bot alembic revision --autogenerate ${RUN_ARGS}
+	pw_migrate create --auto --database ${DATABASE_URL} --directory ${MIGRATIONS_PATH} ${RUN_ARGS}
 
 db_upgrade:
-	docker-compose exec bot alembic upgrade head
+	pw_migrate migrate --database ${DATABASE_URL} --directory ${MIGRATIONS_PATH}
 
 pybabel_extract:
 	pybabel extract --input-dirs=. -o ./data/locales/bot.pot --project=bot
