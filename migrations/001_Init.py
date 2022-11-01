@@ -45,9 +45,9 @@ def migrate(migrator, database, fake=False, **kwargs):
 
     @migrator.create_model
     class User(pw.Model):
-        id = pw.IntegerField(primary_key=True)
+        id = pw.BigIntegerField(primary_key=True)
         name = pw.CharField(max_length=255)
-        username = pw.CharField(max_length=255)
+        username = pw.CharField(max_length=255, null=True)
         language = pw.CharField(constraints=[SQL("DEFAULT 'en'")], default='en', max_length=255)
         is_admin = pw.BooleanField(constraints=[SQL("DEFAULT False")], default=False)
         created_at = pw.DateTimeField()

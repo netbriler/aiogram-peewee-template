@@ -1,14 +1,14 @@
 from datetime import datetime
 
-from peewee import IntegerField, CharField, BooleanField, DateTimeField
+from peewee import BigIntegerField, CharField, BooleanField, DateTimeField
 
-from .base import BaseModel, database
+from .base import BaseModel
 
 
 class User(BaseModel):
-    id = IntegerField(primary_key=True)
-    name = CharField()
-    username = CharField(default=None)
+    id = BigIntegerField(primary_key=True)
+    name = CharField(default=None)
+    username = CharField(default=None, null=True)
     language = CharField(default='en')
 
     is_admin = BooleanField(default=False)
