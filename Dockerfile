@@ -1,5 +1,5 @@
 # preparatory actions stage
-FROM python:3.9-slim as builder
+FROM python:3.11-slim as builder
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ COPY requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
 # final stage
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 RUN addgroup --system app && adduser --system --group app --home /app
 

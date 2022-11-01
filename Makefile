@@ -2,7 +2,7 @@ RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(RUN_ARGS):;@:)
 
 BACKUPS_PATH := ./data/backups/postgres
-DATABASE_URL := $(shell python _get_database_url.py)
+DATABASE_URL := $(shell python3 _get_database_url.py)
 MIGRATIONS_PATH := ./migrations
 
 run:

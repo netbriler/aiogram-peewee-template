@@ -50,6 +50,12 @@
 $ git clone https://github.com/netbriler/aiogram-peewee-template <your project name>
 $ cd <your project name>
 $ pip install -r requirements.txt
+
+# initialize database
+$ pw_migrate migrate --database $(python _get_database_url.py) --directory ./migrations
+# or if you have make you can simply type 
+$ make db_upgrade
+
 # run pooling
 $ python app.py
 # or webhook

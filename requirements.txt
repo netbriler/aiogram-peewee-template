@@ -1,3 +1,4 @@
+requests
 aiogram
 cryptocompare
 python-decouple
