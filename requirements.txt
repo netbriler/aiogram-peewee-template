@@ -1,5 +1,5 @@
 requests
-aiogram
+aiogram==2.25.1
 cryptocompare
 python-decouple
 redis
